@@ -2,8 +2,8 @@ Tasks
 1. project setup (done)
 2. setup app and an empty index url (done)
 3. setup login (done)
-4. setup a sqllite database and tables for customer, consultations, invoices and services 
-5. setup admin portal
+4. setup a sqllite database and tables for customer, consultations, invoices and services (done)
+5. setup admin portal  (done)
 6. setup a theme and styling 
 7. prepare form for add/update and view a list of customers 
 8. prepare form for add/update and view a list of consultations
