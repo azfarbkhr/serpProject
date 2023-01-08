@@ -1,0 +1,22 @@
+<!-- exten the serp/layout.html in the templates folder -->
+
+{% extends 'serp/layout.html' %} 
+
+{% load static %} 
+
+{% block title %}Login{% endblock %} 
+
+
+{% block content %}      
+
+<!--Login--> 
+<div class="container py-5">
+  <h1>Login</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button class="btn btn-primary" type="submit">Login</button>
+  </form>
+</div>
+
+{% endblock %}
