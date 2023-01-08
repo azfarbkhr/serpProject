@@ -1,0 +1,54 @@
+Fictional Interior Design Company
+
+# Objective
+You’ve been hired by Sophia Goodwin, an Interior Designer based in London, Ontario to create a database that will track information on Customers, Consultations (with customers), Invoices, and Services offered. 
+
+Requirement 1;
+All of Sophia’s Customers are based in southern Ontario, and she’d like to keep track of their Name (First and Last), City, Province, Address, Postal Code, Phone #, and Email. Of course, she’ll need unique ID numbers that identify customers.
+
+Requirement 2a;
+Sophia needs to keep track of specific details of her Consultations. She wants to store a unique Consultation number, the Meeting Date, the reason for the meeting, as well as any comments she may have about the meeting. Keep in mind that a single customer can have many consultations, and there can be one or more invoices associated with a consultation. The system should record a unique Consultation number.
+
+Requirement 2b;
+Sophia would like the following information included on her Invoices:
+•	A unique Invoice #
+•	The ID of the associated consultation
+•	Service ID
+•	Invoice Date
+•	Invoice Amount
+•	A field which tells us if the Invoice is paid or not
+
+A single Consultation with a customer can have many Invoices.
+
+Requirement 3;
+Finally, Sophia wants to keep track of the Services that she offers. There should be a unique Service number and a Service name that get recorded somewhere in the database. Keep in mind that a service can appear on many invoices. 
+Here is a list of services that Sophia currently offers:
+•	In-home consultation
+•	Remote consultation
+•	Colour consultation
+•	Kitchen and Bath design
+•	Art Curation
+•	Custom Furniture design
+•	Children’s Spaces
+•	3-D Renderings
+
+
+Naming Conventions;
+Table naming conventions:
+(tbl prefix, descriptive name, mix of lowercase & uppercase, no spaces)
+
+Query naming conventions:
+(qry prefix, decriptive name, mix of lowercase & uppercase, no spaces)
+
+Forms
+Form naming conventions:
+(frm prefix, decriptive name, mix of lowercase & uppercase, no spaces)
+Form controls and values are aligned, spaced evenly, and readable
+Form tab order is logical, sequential
+
+Reports
+Report requirements:
+(at least 2 reports created, data is sorted and grouped, date & page numbers included, title included)
+
+Report naming conventions: 
+(rpt prefix, decriptive name, mix of lowercase & uppercase, no spaces)
