@@ -38,7 +38,7 @@ class Service(models.Model):
     status = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.service_name
+        return self.name
 
 
 class Invoice(models.Model):
@@ -58,6 +58,6 @@ class Invoice(models.Model):
     status = models.CharField(max_length=30, choices=InvoiceStatus.choices, default=InvoiceStatus.PENDING)
 
     def __str__(self):
-        return self.id + ' ' + self.consultation.customer.first_name + ' ' + self.service.name + ' ' + self.status + ' ' + self.date.strftime('%Y-%m-%d')
+        return str(self.id) + ' ' + self.consultation.customer.first_name + ' ' + self.service.name + ' ' + self.status + ' ' + self.date.strftime('%Y-%m-%d')
 
 

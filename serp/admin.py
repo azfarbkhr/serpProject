@@ -6,7 +6,8 @@ admin.site.register(Customer,
     list_display = ('first_name', 'last_name', 'city', 'province', 'address', 'postal_code', 'phone_number', 'email'),
     list_filter = ('first_name', 'last_name', 'city', 'province', 'address', 'postal_code', 'phone_number', 'email'),
     search_fields = ('first_name', 'last_name', 'city', 'province', 'address', 'postal_code', 'phone_number', 'email'),
-    ordering = ('first_name', 'last_name', 'city', 'province', 'address', 'postal_code', 'phone_number', 'email'),
+    ordering = ('first_name',),
+
 )
 
 admin.site.register(Consultation,
@@ -26,7 +27,7 @@ admin.site.register(Service,
 
 admin.site.register(Invoice,
     list_display = ('id', 'date', 'reference', 'amount', 'payment_amount', 'currency', 'consultation', 'service', 'status'),
-    list_filter = ('date', 'currency', 'consultation', 'service', 'status'), 
+    list_filter = ('date', 'currency', 'consultation__customer', 'consultation', 'service', 'status'), 
     search_fields = ('date', 'reference', 'amount', 'payment_amount', 'currency', 'consultation', 'service', 'status'),
     ordering = ('date', 'reference', 'amount', 'payment_amount', 'currency', 'consultation', 'service', 'status'),
 )

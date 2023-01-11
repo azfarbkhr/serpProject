@@ -12,5 +12,15 @@ Tasks
 
 
 
+UI Planning
+Side Menu 
+- Dashboard
+- Customer 
+- Invoices 
+- Consultation
+- Service
+- Log out
+
+
 Target dates 
 - Tasks 1 to 7 will be completed by 8th Jan, 2023
