@@ -91,8 +91,20 @@ def customer_list(request):
     customers = Customer.objects.all()
     # if none value in any field, then it will be replaced with empty string
     
-    # get model column names as list
-    print(Customer._meta.get_fields())
-    customers = customers.values()
     form = CustomerForm()
     return render(request, 'serp/customer_list.html', {'customers': customers, 'form': form})
+
+def customer_edit(request, customer_id):
+    customer = Customer.objects.get(id=customer_id)
+    if request.method == 'POST':
+        form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Customer updated successfully.')
+            return redirect('customer_list_url')
+        else:
+            messages.add_message(request, messages.ERROR, 'Customer could not be updated.')
+            return render(request, 'serp/customer_edit.html', {'form': form, 'customer': customer})
+    else:
+        form = CustomerForm(instance=customer)
+        return render(request, 'serp/customer_edit.html', {'form': form, 'customer': customer})

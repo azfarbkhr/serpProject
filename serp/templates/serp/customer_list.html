@@ -8,6 +8,8 @@
 
 {% block scripts %}
 
+    <script src="{% static 'serp/customer_list.js' %}" type="text/javascript"></script>
+
 {% endblock%} 
 
 {% block content %}
@@ -18,73 +20,47 @@
 
 <p>List of customers in the company</p>
 
-<a href="{% url 'customer_add_url' %}"><button class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></button></a>
+<a id="customer_add_url" href="{% url 'customer_add_url' %}" style="display: none;"></a>
 
 {% if customers %}
     <div class="hidden">
         <table class="myDataTable table table-striped">
             <thead>
                 <tr>
+                    <th></th>
                     <th><i class="fas fa-tasks"></i></th> 
                     <th>Email</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>City</th>
-                    <th>Province</th>
+                    <th>Phone Number</th>
                     <th>Address</th>
                     <th>Postal Code</th>
-                    <th>Phone Number</th>
-                    
                 </tr>
             </thead>
             <tbody>
                 {% for customer in customers %}
                     <tr>
+                        <td></td>
                         <td><a href="{% url 'customer_edit_url' customer.id %}"><i class="fas fa-edit"></i></a></td>
                         <td>{{ customer.email | default_if_none:"--" }}</td>
                         <td>{{ customer.first_name | default_if_none:"--"  }}</td>
                         <td>{{ customer.last_name | default_if_none:"--"  }}</td>
-                        <td>{{ customer.city | default_if_none:"--"  }}</td>
-                        <td>{{ customer.province | default_if_none:"--"  }}</td>
+                        <td>{{ customer.phone_number | default_if_none:"--"  }}</td>                    
                         <td>{{ customer.address | default_if_none:"--"  }}</td>
                         <td>{{ customer.postal_code | default_if_none:"--"  }}</td>
-                        <td>{{ customer.phone_number | default_if_none:"--"  }}</td>                    
+                        
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 {% else %}
-    <p>No customers found</p>
-{% endif %}
-
-
-<!-- modal for bulk edit of the customers -->
-
-<div class="modal fade" id="bulkEditModal" tabindex="-1" role="dialog" aria-labelledby="bulkEditModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="bulkEditModalLabel">Bulk Edit</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="bulkEditForm" method="POST" action="#">
-            {% csrf_token %}
-            <div class="form-group">
-                {{ form | crispy }}
-            </div>
-        </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" form="bulkEditForm" class="btn btn-primary">Apply</button>
-        </div>
-    </div>
-    </div>
+<div class="text-center pb-2" >
+    <a href="{% url 'customer_add_url' %}"><button class="btn btn-secondary" id="addCustomer" style="margin-left: auto; margin-right: auto;"><i class="fas fa-plus"></i> Add Customer</button></a>
 </div>
+
+    <img src="{% static 'serp/images/noCustomerRecord.png' %}" style="height: 50vh; display: block; margin-left: auto; margin-right: auto;  " alt="">
+{% endif %}
 
 
 

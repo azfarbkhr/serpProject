@@ -35,7 +35,6 @@ class CustomerForm(forms.ModelForm):
     
     class Meta:
         model = Customer
-        fields = '__all__'
-    
-
-    
+        #fields = '__all__'
+        fields = ('email', 'first_name', 'last_name', 'phone_number', 'address', 'postal_code', 'phone_number')
+        
