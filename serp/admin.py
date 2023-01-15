@@ -3,7 +3,7 @@ from .models import Customer, Consultation, Service, Invoice
 
 # Register your models here.
 admin.site.register(Customer,
-    list_display = ('first_name', 'last_name', 'city', 'province', 'address', 'postal_code', 'phone_number', 'email'),
+    list_display = ('first_name', 'last_name', 'city', 'province', 'address', 'postal_code', 'phone_number', 'email',),
     list_filter = ('first_name', 'last_name', 'city', 'province', 'address', 'postal_code', 'phone_number', 'email'),
     search_fields = ('first_name', 'last_name', 'city', 'province', 'address', 'postal_code', 'phone_number', 'email'),
     ordering = ('first_name',),

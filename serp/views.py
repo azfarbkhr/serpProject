@@ -7,7 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
 from django.contrib.contenttypes.models import ContentType
 from .models import Invoice, Consultation, Service, Customer
-from .forms import sample_form
+from .forms import sample_form, CustomerForm
 
 # Create your views here.
 @login_required
@@ -15,7 +15,6 @@ def index(request):
     global_search("ali")
     messages.add_message(request, messages.SUCCESS, 'Hello world.')
     return render(request, 'serp/index.html', {})
-
 
 @login_required
 def sample_request(request):
@@ -41,7 +40,6 @@ def sample_request(request):
     messages.add_message(request, messages.SUCCESS, 'Hello world.')
     print(rows)
     return render(request, 'serp/sample_grid.html', {'invoices': invoices, 'rows': rows, 'columns': columns})
-
 
 def global_search(query):
     results = []
@@ -73,3 +71,28 @@ def global_search(query):
     print(results)
     return results
 
+def customer_add(request):
+    if request.method == 'POST':
+        form = CustomerForm(request.POST)
+
+        if form.is_valid():
+            Customer.objects.create(**form.cleaned_data)
+            messages.add_message(request, messages.SUCCESS, 'Customer added successfully.')
+            return redirect('customer_list_url')
+        else:
+            messages.add_message(request, messages.ERROR, 'Customer could not be added.')
+            return render(request, 'serp/customer_add.html', {'form': form})
+    
+    else:
+        form = CustomerForm()
+        return render(request, 'serp/customer_add.html', {'form': form})
+
+def customer_list(request):
+    customers = Customer.objects.all()
+    # if none value in any field, then it will be replaced with empty string
+    
+    # get model column names as list
+    print(Customer._meta.get_fields())
+    customers = customers.values()
+    form = CustomerForm()
+    return render(request, 'serp/customer_list.html', {'customers': customers, 'form': form})
