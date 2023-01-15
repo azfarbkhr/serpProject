@@ -1,0 +1,26 @@
+#content-wrapper {
+    min-height: 100vh;
+}
+
+div.hidden {
+    display: none;
+}
+
+th {
+    vertical-align: text-top !important;
+}
+
+/*
+.myDataTable th:before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+}
+.myDataTable th span {
+    position: relative;
+    top: -1%;
+    display: inline-block;
+    vertical-align: middle;
+} */

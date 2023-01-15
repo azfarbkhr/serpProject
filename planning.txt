@@ -10,6 +10,17 @@ Tasks
 9. prepare form for add/update and view a list of invoices  
 
 
+UI Components 
+- Layout messages (done)
+- forms (done)
+- form messages (done) 
+- grids (done) 
+- modals (done) 
+- buttons (done) 
+- side menu (done) 
+- top menu (done) 
+
+
 
 
 UI Planning

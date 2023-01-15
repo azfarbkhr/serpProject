@@ -7,13 +7,40 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
 from django.contrib.contenttypes.models import ContentType
 from .models import Invoice, Consultation, Service, Customer
+from .forms import sample_form
 
 # Create your views here.
 @login_required
 def index(request):
     global_search("ali")
-    return render(request, 'serp/index.html')
+    messages.add_message(request, messages.SUCCESS, 'Hello world.')
+    return render(request, 'serp/index.html', {})
 
+
+@login_required
+def sample_request(request):
+    # if request.method == 'POST':
+    #     form = sample_form(request.POST)
+    #     if form.is_valid():
+    #         print(form.cleaned_data)
+    #         return redirect('index')
+    # else:
+    #     messages.add_message(request, messages.ERROR, 'sample message on form.')
+    #     form = sample_form()
+    # return render(request, 'serp/sample_form.html', {'form': form}) 
+
+    # get the list of invoices 
+    invoices = Invoice.objects.all()
+
+    # get only rows from invoice table
+    rows = Invoice.objects.values_list('id', 'date', 'reference', 'amount', 'payment_amount', 'currency', 'consultation', 'service', 'status')
+
+    # get only columns from invoice table
+    columns = Invoice.objects.values('id', 'date', 'reference', 'amount', 'payment_amount', 'currency', 'consultation', 'service', 'status')
+
+    messages.add_message(request, messages.SUCCESS, 'Hello world.')
+    print(rows)
+    return render(request, 'serp/sample_grid.html', {'invoices': invoices, 'rows': rows, 'columns': columns})
 
 
 def global_search(query):
