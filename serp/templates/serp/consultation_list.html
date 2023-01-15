@@ -1,0 +1,62 @@
+{% extends 'serp/layout.html' %} 
+
+{% load static %} 
+
+{% block title %}Consultations{% endblock %} 
+
+{% load crispy_forms_tags %}
+
+{% block scripts %}
+
+    <script src="{% static 'serp/consultation_list.js' %}" type="text/javascript"></script>
+
+{% endblock%} 
+
+{% block content %}
+
+<h1>
+    Consultations
+</h1>
+
+<p>List of consultations</p>
+
+<a id="consultation_add_url" href="{% url 'consultation_add_url' %}" style="display: none;"></a>
+
+{% if consultations %}
+    <div class="hidden">
+        <table class="myDataTable table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th><i class="fas fa-tasks"></i></th> 
+                    <th>Meeting Date</th>
+                    <th>Comments</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for consultation in consultations %}
+                    <tr>
+                        <td></td>
+                        <td><a href="{% url 'consultation_edit_url' consultation.id %}"><i class="fas fa-edit"></i></a></td>
+                        <td>{{ consultation.meeting_date | default_if_none:"--"}}</td>
+                        <td>{{ consultation.comments | default_if_none:"--" }}</td>
+                        <td>{{ consultation.customer | default_if_none:"--"}}</td>
+                        <td>{{ consultation.status | default_if_none:"--"}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+<div class="text-center pb-2" >
+    <a href="{% url 'consultation_add_url' %}"><button class="btn btn-secondary" id="addCustomer" style="margin-left: auto; margin-right: auto;"><i class="fas fa-plus"></i> Add Consultation</button></a>
+</div>
+
+    <img src="{% static 'serp/images/noConsultationRecord.png' %}" style="height: 50vh; display: block; margin-left: auto; margin-right: auto;  " alt="">
+{% endif %}
+
+
+
+{% endblock %}

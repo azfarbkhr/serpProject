@@ -35,6 +35,22 @@ class CustomerForm(forms.ModelForm):
     
     class Meta:
         model = Customer
-        #fields = '__all__'
         fields = ('email', 'first_name', 'last_name', 'phone_number', 'address', 'postal_code', 'phone_number')
         
+class ConsultationForm(forms.ModelForm):
+        
+        class Meta:
+            model = Consultation
+            fields = ('meeting_date', 'status', 'customer', 'comments')
+            widgets = {
+            'meeting_date': forms.widgets.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
+
+class InvoiceForm(forms.ModelForm):
+        
+        class Meta:
+            model = Invoice
+            fields = '__all__'
+            widgets = {
+                'date': forms.widgets.DateInput(attrs={'type': 'date'}),
+            }

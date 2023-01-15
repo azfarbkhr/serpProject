@@ -6,8 +6,8 @@ Tasks
 5. setup admin portal  (done)
 6. setup a theme and styling (done)
 7. prepare form for add/update and view a list of customers (done)
-8. prepare form for add/update and view a list of consultations
-9. prepare form for add/update and view a list of invoices  
+8. prepare form for add/update and view a list of consultations (done)
+9. prepare form for add/update and view a list of invoices (done)
 
 
 UI Components 

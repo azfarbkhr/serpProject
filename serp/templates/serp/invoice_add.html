@@ -1,0 +1,20 @@
+{% extends 'serp/layout.html' %} 
+
+{% load static %} 
+{% load crispy_forms_tags %}
+{% block title %}Add Invoice{% endblock %} 
+
+{% block content %}
+
+<h1>Add Invoice</h1>
+<p>Provide details for the invoice to be issued.</p>
+
+<form method="post" action="{% url 'invoice_add_url' %}" class="form-group">
+    {% csrf_token %}
+    <div class="text-right"><input type="submit" value="Save" class="btn btn-primary"></div>
+    {{ form | crispy }}
+    <div class="text-right"><input type="submit" value="Save" class="btn btn-primary"></div>
+</form>
+
+
+{% endblock %}

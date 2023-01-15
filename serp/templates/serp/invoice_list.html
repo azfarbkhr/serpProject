@@ -1,0 +1,68 @@
+{% extends 'serp/layout.html' %} 
+
+{% load static %} 
+
+{% block title %}Invoices{% endblock %} 
+
+{% load crispy_forms_tags %}
+
+{% block scripts %}
+    <script src="{% static 'serp/invoice_list.js' %}" type="text/javascript"></script>
+{% endblock%} 
+
+{% block content %}
+
+<h1>
+    Invoices
+</h1>
+
+<p>List of invoices</p>
+
+<a id="invoice_add_url" href="{% url 'invoice_add_url' %}" style="display: none;"></a>
+
+{% if invoices %}
+    <div class="hidden">
+        <table class="myDataTable table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th><i class="fas fa-tasks"></i></th> 
+                    <th>Date</th>
+                    <th>Reference</th>
+                    <th>Amount</th>
+                    <th>Payment Amount</th>
+                    <th>Currency</th>
+                    <th>Consultation</th>
+                    <th>Service</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for invoice in invoices %}
+                    <tr>
+                        <td></td>
+                        <td><a href="{% url 'invoice_edit_url' invoice.id %}"><i class="fas fa-edit"></i></a></td>
+                        <td>{{ invoice.date | default_if_none:"--"  }}</td>
+                        <td>{{ invoice.reference | default_if_none:"--"  }}</td>
+                        <td>{{ invoice.amount | default_if_none:"--"  }}</td>
+                        <td>{{ invoice.payment_amount | default_if_none:"--"  }}</td>
+                        <td>{{ invoice.currency | default_if_none:"--"  }}</td>
+                        <td>{{ invoice.consultation | default_if_none:"--"  }}</td>
+                        <td>{{ invoice.service | default_if_none:"--"  }}</td>
+                        <td>{{ invoice.status | default_if_none:"--"  }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+<div class="text-center pb-2" >
+    <a href="{% url 'invoice_add_url' %}"><button class="btn btn-secondary" id="addInvoice" style="margin-left: auto; margin-right: auto;"><i class="fas fa-plus"></i> Add Invoice</button></a>
+</div>
+
+    <img src="{% static 'serp/images/noCustomerRecord.png' %}" style="height: 50vh; display: block; margin-left: auto; margin-right: auto;  " alt="">
+{% endif %}
+
+
+
+{% endblock %}

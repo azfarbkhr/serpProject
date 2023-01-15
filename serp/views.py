@@ -7,7 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
 from django.contrib.contenttypes.models import ContentType
 from .models import Invoice, Consultation, Service, Customer
-from .forms import sample_form, CustomerForm
+from .forms import sample_form, CustomerForm, ConsultationForm, InvoiceForm
 
 # Create your views here.
 @login_required
@@ -18,15 +18,15 @@ def index(request):
 
 @login_required
 def sample_request(request):
-    # if request.method == 'POST':
-    #     form = sample_form(request.POST)
-    #     if form.is_valid():
-    #         print(form.cleaned_data)
-    #         return redirect('index')
-    # else:
-    #     messages.add_message(request, messages.ERROR, 'sample message on form.')
-    #     form = sample_form()
-    # return render(request, 'serp/sample_form.html', {'form': form}) 
+    if request.method == 'POST':
+        form = sample_form(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            return redirect('index')
+    else:
+        messages.add_message(request, messages.ERROR, 'sample message on form.')
+        form = sample_form()
+    return render(request, 'serp/sample_form.html', {'form': form}) 
 
     # get the list of invoices 
     invoices = Invoice.objects.all()
@@ -89,13 +89,16 @@ def customer_add(request):
 
 def customer_list(request):
     customers = Customer.objects.all()
-    # if none value in any field, then it will be replaced with empty string
-    
-    form = CustomerForm()
-    return render(request, 'serp/customer_list.html', {'customers': customers, 'form': form})
+    return render(request, 'serp/customer_list.html', {'customers': customers})
 
 def customer_edit(request, customer_id):
-    customer = Customer.objects.get(id=customer_id)
+    
+    if Customer.objects.filter(id=customer_id).count() == 0:
+        messages.add_message(request, messages.ERROR, 'Customer does not exist in the system.')
+        return redirect('customer_add_url')
+    else:
+        customer = Customer.objects.get(id=customer_id)
+
     if request.method == 'POST':
         form = CustomerForm(request.POST, instance=customer)
         if form.is_valid():
@@ -108,3 +111,79 @@ def customer_edit(request, customer_id):
     else:
         form = CustomerForm(instance=customer)
         return render(request, 'serp/customer_edit.html', {'form': form, 'customer': customer})
+
+def consultation_list(request):
+    consultations = Consultation.objects.all()
+    return render(request, 'serp/consultation_list.html', {'consultations': consultations})
+
+def consultation_add(request):
+    if request.method == 'POST':
+        form = ConsultationForm(request.POST)
+        if form.is_valid():
+            Consultation.objects.create(**form.cleaned_data)
+            messages.add_message(request, messages.SUCCESS, 'Consultation added successfully.')
+            return redirect('consultation_list_url')
+        else:
+            messages.add_message(request, messages.ERROR, 'Consultation could not be added.')
+            return render(request, 'serp/consultation_add.html', {'form': form})
+    else:
+        form = ConsultationForm()
+        return render(request, 'serp/consultation_add.html', {'form': form})
+
+def consultation_edit(request, consultation_id):
+    if Consultation.objects.filter(id=consultation_id).count() == 0:
+        messages.add_message(request, messages.ERROR, 'Consultation does not exist in the system.')
+        return redirect('consultation_add_url')
+    else:
+        consultation = Consultation.objects.get(id=consultation_id)
+
+    if request.method == 'POST':
+        form = ConsultationForm(request.POST, instance=consultation)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Consultation updated successfully.')
+            return redirect('consultation_list_url')
+        else:
+            messages.add_message(request, messages.ERROR, 'Consultation could not be updated.')
+            return render(request, 'serp/consultation_edit.html', {'form': form, 'consultation': consultation})
+    else:
+        form = ConsultationForm(instance=consultation)
+        return render(request, 'serp/consultation_edit.html', {'form': form, 'consultation': consultation})
+
+def invoice_list(request):
+    invoices = Invoice.objects.all()
+    return render(request, 'serp/invoice_list.html', {'invoices': invoices})
+
+def invoice_add(request):
+    if request.method == 'POST':
+        form = InvoiceForm(request.POST)
+        if form.is_valid():
+            Invoice.objects.create(**form.cleaned_data)
+            messages.add_message(request, messages.SUCCESS, 'Invoice added successfully.')
+            return redirect('invoice_list_url')
+        else:
+            messages.add_message(request, messages.ERROR, 'Invoice could not be added.')
+            return render(request, 'serp/invoice_add.html', {'form': form})
+    else:
+        form = InvoiceForm()
+        return render(request, 'serp/invoice_add.html', {'form': form})
+
+def invoice_edit(request, invoice_id):
+    if Invoice.objects.filter(id=invoice_id).count() == 0:
+        messages.add_message(request, messages.ERROR, 'Invoice does not exist in the system.')
+        return redirect('invoice_add_url')
+    else:
+        invoice = Invoice.objects.get(id=invoice_id)
+
+    if request.method == 'POST':
+        form = InvoiceForm(request.POST, instance=invoice)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Invoice updated successfully.')
+            return redirect('invoice_list_url')
+        else:
+            messages.add_message(request, messages.ERROR, 'Invoice could not be updated.')
+            return render(request, 'serp/invoice_edit.html', {'form': form, 'invoice': invoice})
+    else:
+        form = InvoiceForm(instance=invoice)
+        return render(request, 'serp/invoice_edit.html', {'form': form, 'invoice': invoice})
