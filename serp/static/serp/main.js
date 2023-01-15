@@ -75,12 +75,12 @@ function loadDataTables() {
     $('button.buttons-colvis').html('<i class="fas fa-columns"></i>  ');
     
     // add a new button to the top of the table
-    $('.top').prepend('<button class="btn btn-primary" id="submitButton">Submit</button>');
+    $('.top').prepend('<button class="btn btn-primary" id="bulkEditButton"><i class="fas fa-edit"></i></button>');
     // add padding to the new button
-    $('#submitButton').css('margin-left', '3px');
+    $('#bulkEditButton').css('margin-left', '3px');
     //$('#myButton').css('margin-right', '10px');
     // add a event listener to the new button
-    $('#submitButton').click(function () {
+    $('#bulkEditButton').click(function () {
         // show a modal to edit the selected rows
         $('#editModal').modal('show');
     });
