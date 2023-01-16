@@ -71,6 +71,7 @@ def global_search(query):
     print(results)
     return results
 
+@login_required
 def customer_add(request):
     if request.method == 'POST':
         form = CustomerForm(request.POST)
@@ -87,10 +88,12 @@ def customer_add(request):
         form = CustomerForm()
         return render(request, 'serp/customer_add.html', {'form': form})
 
+@login_required
 def customer_list(request):
     customers = Customer.objects.all()
     return render(request, 'serp/customer_list.html', {'customers': customers})
 
+@login_required
 def customer_edit(request, customer_id):
     
     if Customer.objects.filter(id=customer_id).count() == 0:
@@ -112,10 +115,12 @@ def customer_edit(request, customer_id):
         form = CustomerForm(instance=customer)
         return render(request, 'serp/customer_edit.html', {'form': form, 'customer': customer})
 
+@login_required
 def consultation_list(request):
     consultations = Consultation.objects.all()
     return render(request, 'serp/consultation_list.html', {'consultations': consultations})
 
+@login_required
 def consultation_add(request):
     if request.method == 'POST':
         form = ConsultationForm(request.POST)
@@ -130,6 +135,7 @@ def consultation_add(request):
         form = ConsultationForm()
         return render(request, 'serp/consultation_add.html', {'form': form})
 
+@login_required
 def consultation_edit(request, consultation_id):
     if Consultation.objects.filter(id=consultation_id).count() == 0:
         messages.add_message(request, messages.ERROR, 'Consultation does not exist in the system.')
@@ -150,10 +156,12 @@ def consultation_edit(request, consultation_id):
         form = ConsultationForm(instance=consultation)
         return render(request, 'serp/consultation_edit.html', {'form': form, 'consultation': consultation})
 
+@login_required
 def invoice_list(request):
     invoices = Invoice.objects.all()
     return render(request, 'serp/invoice_list.html', {'invoices': invoices})
 
+@login_required
 def invoice_add(request):
     if request.method == 'POST':
         form = InvoiceForm(request.POST)
@@ -168,6 +176,7 @@ def invoice_add(request):
         form = InvoiceForm()
         return render(request, 'serp/invoice_add.html', {'form': form})
 
+@login_required
 def invoice_edit(request, invoice_id):
     if Invoice.objects.filter(id=invoice_id).count() == 0:
         messages.add_message(request, messages.ERROR, 'Invoice does not exist in the system.')
